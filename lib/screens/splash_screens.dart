@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:task_manager_app/screens/sign_in_screen.dart';
-import 'package:task_manager_app/utils/asset_paths.dart';
+import 'package:task_manager/screens/sign_in_screen.dart';
+import 'package:task_manager/utils/asset_paths.dart';
 
 class SplashScreens extends StatefulWidget {
   const SplashScreens({super.key});
