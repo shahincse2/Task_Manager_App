@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager/features/screens/sign_in_screen.dart';
 import 'package:task_manager/features/widgets/screen_background.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -44,10 +45,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Center(
                 child: Column(
                   children: [
-                    TextButton(
-                      onPressed: _onTapForgotButton,
-                      child: Text('Forgot Password?'),
-                    ),
                     RichText(
                       text: TextSpan(
                         text: "Have an account? ",
@@ -76,7 +73,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void _onTapForgotButton() {}
-  void _onTapSignUpButton() {}
-  void _onTapSignInButton() {}
+  void _onTapSignUpButton() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SignUpScreen()),
+    );
+  }
+  void _onTapSignInButton() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SignInScreen()),
+    );
+  }
 }
