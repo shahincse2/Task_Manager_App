@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/features/screens/forgot_password_email_screen.dart';
+import 'package:task_manager/features/screens/forgot_password_otp_verify_screen.dart';
 import 'package:task_manager/features/screens/sign_in_screen.dart';
 import 'package:task_manager/features/screens/sign_up_screen.dart';
 import 'package:task_manager/features/screens/splash_screens.dart';
@@ -49,6 +51,13 @@ class TaskManagerApp extends StatelessWidget {
             ),
           ),
         ),
+        textTheme: TextTheme(
+          titleLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+          titleMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          titleSmall: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          bodyMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+          bodySmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+        ),
       ),
       debugShowCheckedModeBanner: false,
       title: 'Task Manager',
@@ -56,6 +65,8 @@ class TaskManagerApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         SignInScreen.routeName: (BuildContext context) => SignInScreen(),
         SignUpScreen.routeName: (BuildContext context) => SignUpScreen(),
+        ForgotPasswordEmailScreen.routeName: (BuildContext context) => ForgotPasswordEmailScreen(),
+        ForgotPasswordPOtpVerifyScreen.routeName: (BuildContext context) => ForgotPasswordPOtpVerifyScreen(),
       },
       home: SplashScreens(),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager/features/screens/forgot_password_email_screen.dart';
 import 'package:task_manager/features/screens/sign_in_screen.dart';
 import 'package:task_manager/features/widgets/screen_background.dart';
 
@@ -26,9 +27,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             children: [
               const SizedBox(height: 16),
 
-              const Text(
-                'Join With Us',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+              Text(
+                'Join With Us', style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 24),
               TextFormField(decoration: InputDecoration(hintText: 'Email')),
@@ -38,7 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               TextFormField(decoration: InputDecoration(hintText: 'Password')),
               const SizedBox(height: 8),
               FilledButton(
-                onPressed: _onTapSignUpButton,
+                onPressed: _moveToPinVerificationScreen,
                 child: Icon(Icons.arrow_circle_right_outlined),
               ),
               const SizedBox(height: 24),
@@ -73,10 +73,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void _onTapSignUpButton() {
+  void _moveToPinVerificationScreen() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SignUpScreen()),
+      MaterialPageRoute(builder: (context) => ForgotPasswordEmailScreen()),
     );
   }
   void _onTapSignInButton() {
