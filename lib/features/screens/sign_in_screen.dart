@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/features/screens/forgot_password_email_screen.dart';
+import 'package:task_manager/features/screens/main_bottom_nav_bar_screen.dart';
 import 'package:task_manager/features/screens/sign_up_screen.dart';
 import 'package:task_manager/features/widgets/screen_background.dart';
 
@@ -84,9 +85,6 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
   void _onTapSignInButton() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SignUpScreen()),
-    );
+   Navigator.pushReplacementNamed(context, MainBottomNavBarScreen.routeName);
   }
 }

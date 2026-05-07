@@ -1,8 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:task_manager/features/screens/forgot_password_email_screen.dart';
 import 'package:task_manager/features/screens/sign_in_screen.dart';
-import 'package:task_manager/features/screens/sign_up_screen.dart';
 import 'package:task_manager/features/widgets/screen_background.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
