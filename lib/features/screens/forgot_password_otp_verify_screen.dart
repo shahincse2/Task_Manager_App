@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:task_manager/features/screens/reset_password_screen.dart';
 import 'package:task_manager/features/screens/sign_in_screen.dart';
 import 'package:task_manager/features/widgets/screen_background.dart';
 
@@ -77,8 +78,8 @@ class _ForgotPasswordPOtpVerifyScreenState
 
               const SizedBox(height: 8),
               FilledButton(
-                onPressed: _onTapForgotPasswordButton,
-                child: Icon(Icons.arrow_circle_right_outlined),
+                onPressed: _onTapVerifyPasswordButton,
+                child: Text('Verify'),
               ),
               const SizedBox(height: 24),
               Center(
@@ -108,8 +109,8 @@ class _ForgotPasswordPOtpVerifyScreenState
     );
   }
 
-  void _onTapForgotPasswordButton() {
-    Navigator.pushNamed(context, ForgotPasswordPOtpVerifyScreen.routeName);
+  void _onTapVerifyPasswordButton() {
+    Navigator.pushNamedAndRemoveUntil(context, ResetPasswordScreen.routeName, (route) => false);
   }
 
   void _onTapSignInButton() {
