@@ -11,7 +11,6 @@ class ProgressTaskListScreen extends StatefulWidget {
 class _ProgressTaskListScreenState extends State<ProgressTaskListScreen> {
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -32,10 +31,6 @@ class _ProgressTaskListScreenState extends State<ProgressTaskListScreen> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add),
       ),
     );
   }

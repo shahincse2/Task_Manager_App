@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/features/screens/add_new_task_screen.dart';
 import 'package:task_manager/features/widgets/task_card.dart';
 
 class NewTaskListScreen extends StatefulWidget {
@@ -35,7 +36,7 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: _onTapAddNewTaskButton,
         child: Icon(Icons.add),
       ),
     );
@@ -65,5 +66,9 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
         },
       ),
     );
+  }
+
+  void _onTapAddNewTaskButton() {
+    Navigator.pushNamed(context, AddNewTaskScreen.routeName);
   }
 }

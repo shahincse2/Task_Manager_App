@@ -11,7 +11,6 @@ class CanceledTaskListScreen extends StatefulWidget {
 class _CanceledTaskListScreenState extends State<CanceledTaskListScreen> {
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -32,10 +31,6 @@ class _CanceledTaskListScreenState extends State<CanceledTaskListScreen> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add),
       ),
     );
   }
