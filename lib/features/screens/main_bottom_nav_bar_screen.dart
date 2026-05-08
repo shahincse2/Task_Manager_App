@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/features/screens/canceled_task_list_screen.dart';
+import 'package:task_manager/features/screens/complete_task_list_screen.dart';
+import 'package:task_manager/features/screens/new_task_list_screen.dart';
+import 'package:task_manager/features/screens/progress_task_list_screen.dart';
 import 'package:task_manager/features/widgets/task_manager_app_bar.dart';
 
 class MainBottomNavBarScreen extends StatefulWidget {
@@ -12,12 +16,18 @@ class MainBottomNavBarScreen extends StatefulWidget {
 
 class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
   int _selectedIndex = 0;
-
+  final List<Widget> _screens = <Widget>[
+      NewTaskListScreen(),
+      ProgressTaskListScreen(),
+      CanceledTaskListScreen(),
+      CompleteTaskListScreen(),
+    ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TMAppBar(),
+      body: _screens[_selectedIndex],
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
         onDestinationSelected: (int index) {
@@ -37,7 +47,7 @@ class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
           ),
           NavigationDestination(
             icon: Icon(Icons.cancel_outlined),
-            label: 'Cancelled',
+            label: 'Canceled',
           ),
           NavigationDestination(
             icon: Icon(Icons.done_all_outlined),

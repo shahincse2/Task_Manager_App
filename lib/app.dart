@@ -14,6 +14,7 @@ class TaskManagerApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.green.shade50,
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         inputDecorationTheme: InputDecorationTheme(
