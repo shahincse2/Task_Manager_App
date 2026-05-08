@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:task_manager/features/screens/forgot_password_email_screen.dart';
@@ -14,21 +16,25 @@ class UpdateProfileScreen extends StatefulWidget {
 }
 
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
-  XFile? pickedImage;
+  File? selectedImage;
 
   Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
+    try {
+      final XFile? pickedFile = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 70,
+      );
 
-    final XFile? image = await picker.pickImage(
-      source: ImageSource.gallery,
-    );
-
-    if (image != null) {
-      setState(() {
-        pickedImage = image;
-      });
+      if (pickedFile != null) {
+        setState(() {
+          selectedImage = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,22 +55,27 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 ),
                 const SizedBox(height: 24),
                 TextFormField(
+                  readOnly: true,
+
                   decoration: InputDecoration(
                     hintText: 'Select Photo',
 
                     prefixIcon: GestureDetector(
                       onTap: _pickImage,
+
                       child: Container(
                         width: 100,
                         alignment: Alignment.center,
-                        color: Colors.black,
-
+                        decoration: BoxDecoration(
+                          color: Colors.black87,
+                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), topLeft: Radius.circular(8),),
+                        ),
                         child: const Text(
                           'Photos',
                           textAlign: TextAlign.center,
+
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -72,6 +83,16 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     ),
                   ),
                 ),
+
+                const SizedBox(height: 20),
+
+                if (selectedImage != null)
+                  Image.file(
+                    selectedImage!,
+                    height: 120,
+                    width: 120,
+                    fit: BoxFit.cover,
+                  ),
 
                 TextFormField(decoration: InputDecoration(hintText: 'Email')),
                 TextFormField(
