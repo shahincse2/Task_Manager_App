@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/features/screens/add_new_task_screen.dart';
-import 'package:task_manager/features/screens/forgot_password_email_screen.dart';
-import 'package:task_manager/features/screens/forgot_password_otp_verify_screen.dart';
-import 'package:task_manager/features/screens/main_bottom_nav_bar_screen.dart';
-import 'package:task_manager/features/screens/reset_password_screen.dart';
-import 'package:task_manager/features/screens/sign_in_screen.dart';
-import 'package:task_manager/features/screens/sign_up_screen.dart';
-import 'package:task_manager/features/screens/splash_screens.dart';
-import 'package:task_manager/features/screens/update_profile_screen.dart';
+import 'package:task_manager/ui/screens/add_new_task_screen.dart';
+import 'package:task_manager/ui/screens/forgot_password_email_screen.dart';
+import 'package:task_manager/ui/screens/forgot_password_otp_verify_screen.dart';
+import 'package:task_manager/ui/screens/main_bottom_nav_bar_screen.dart';
+import 'package:task_manager/ui/screens/reset_password_screen.dart';
+import 'package:task_manager/ui/screens/sign_in_screen.dart';
+import 'package:task_manager/ui/screens/sign_up_screen.dart';
+import 'package:task_manager/ui/screens/splash_screens.dart';
+import 'package:task_manager/ui/screens/update_profile_screen.dart';
 
 class TaskManagerApp extends StatelessWidget {
   const TaskManagerApp({super.key});

@@ -1,20 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:task_manager/features/screens/forgot_password_email_screen.dart';
-import 'package:task_manager/features/screens/sign_in_screen.dart';
-import 'package:task_manager/features/widgets/screen_background.dart';
+import 'package:task_manager/ui/screens/forgot_password_email_screen.dart';
+import 'package:task_manager/ui/screens/main_bottom_nav_bar_screen.dart';
+import 'package:task_manager/ui/screens/sign_up_screen.dart';
+import 'package:task_manager/ui/widgets/screen_background.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
-  static const String routeName = '/sign-up';
-
+  static const String routeName = '/sign-in';
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,26 +28,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: 16),
 
               Text(
-                'Join With Us', style: Theme.of(context).textTheme.titleLarge,
+                'Get Started With',
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 24),
               TextFormField(decoration: InputDecoration(hintText: 'Email')),
-              TextFormField(decoration: InputDecoration(hintText: 'First Name')),
-              TextFormField(decoration: InputDecoration(hintText: 'Last Name')),
-              TextFormField(decoration: InputDecoration(hintText: 'Mobile')),
               TextFormField(decoration: InputDecoration(hintText: 'Password')),
               const SizedBox(height: 8),
               FilledButton(
-                onPressed: _moveToPinVerificationScreen,
+                onPressed: _onTapSignInButton,
                 child: Icon(Icons.arrow_circle_right_outlined),
               ),
               const SizedBox(height: 24),
               Center(
                 child: Column(
                   children: [
+                    TextButton(
+                      onPressed: _onTapForgotButton,
+                      child: Text('Forgot Password?'),
+                    ),
                     RichText(
                       text: TextSpan(
-                        text: "Have an account? ",
+                        text: "Don't have an account? ",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w500,
@@ -55,10 +57,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         children: [
                           TextSpan(
-                            text: 'Sign In',
+                            text: 'Sign Up',
                             style: TextStyle(color: Colors.green),
                             recognizer: TapGestureRecognizer()
-                              ..onTap = _onTapSignInButton
+                              ..onTap = _onTapSignUpButton
                           ),
                         ],
                       ),
@@ -73,16 +75,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void _moveToPinVerificationScreen() {
+  void _onTapForgotButton() {
+    Navigator.pushNamed(context, ForgotPasswordEmailScreen.routeName);
+  }
+  void _onTapSignUpButton() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ForgotPasswordEmailScreen()),
+      MaterialPageRoute(builder: (context) => SignUpScreen()),
     );
   }
   void _onTapSignInButton() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SignInScreen()),
-    );
+   Navigator.pushReplacementNamed(context, MainBottomNavBarScreen.routeName);
   }
 }

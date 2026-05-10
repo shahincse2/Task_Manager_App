@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/features/screens/update_profile_screen.dart';
+import 'package:task_manager/ui/screens/update_profile_screen.dart';
 
 class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TMAppBar({super.key, this.fromUpdateProfileScreen = false});

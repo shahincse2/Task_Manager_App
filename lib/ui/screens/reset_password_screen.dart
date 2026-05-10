@@ -1,19 +1,18 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:task_manager/features/screens/forgot_password_otp_verify_screen.dart';
-import 'package:task_manager/features/screens/sign_in_screen.dart';
-import 'package:task_manager/features/widgets/screen_background.dart';
+import 'package:task_manager/ui/screens/sign_in_screen.dart';
+import 'package:task_manager/ui/widgets/screen_background.dart';
 
-class ForgotPasswordEmailScreen extends StatefulWidget {
-  const ForgotPasswordEmailScreen({super.key});
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({super.key});
 
-  static const String routeName = '/forgot-password-email-screen';
+  static const String routeName = '/reset-password-screen';
 
   @override
-  State<ForgotPasswordEmailScreen> createState() => _ForgotPasswordEmailScreenState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,21 +26,20 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
               const SizedBox(height: 16),
 
               Text(
-                'Your Email Address',
+                'Reset Password',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-
               Text(
-                'A 6 digit verification code will be sent to your email address',
+                'Minimum length of password is 8 characters, at least one letter and one number',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-
-              const SizedBox(height: 8),
-              TextFormField(decoration: InputDecoration(hintText: 'Email')),
+              const SizedBox(height: 24),
+              TextFormField(decoration: InputDecoration(hintText: 'New Password')),
+              TextFormField(decoration: InputDecoration(hintText: 'Confirm Password')),
               const SizedBox(height: 8),
               FilledButton(
-                onPressed: _onTapEmailSubmitButton,
-                child: Icon(Icons.arrow_circle_right_outlined),
+                onPressed: _onTapConfirmButton,
+                child: Text('Confirm'),
               ),
               const SizedBox(height: 24),
               Center(
@@ -55,10 +53,10 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
                     ),
                     children: [
                       TextSpan(
-                          text: 'Sign In',
-                          style: TextStyle(color: Colors.green),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = _onTapSignInButton
+                        text: 'Sign In',
+                        style: TextStyle(color: Colors.green),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = _onTapSignInButton
                       ),
                     ],
                   ),
@@ -70,10 +68,9 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
       ),
     );
   }
-  void _onTapEmailSubmitButton() {
-    Navigator.pushNamed(context, ForgotPasswordPOtpVerifyScreen.routeName);
+  void _onTapConfirmButton(){
+    //TODO: Implement reset password functionality here
   }
-
   void _onTapSignInButton() {
     Navigator.push(
       context,

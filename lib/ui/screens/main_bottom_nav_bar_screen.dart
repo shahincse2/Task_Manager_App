@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/features/screens/canceled_task_list_screen.dart';
-import 'package:task_manager/features/screens/complete_task_list_screen.dart';
-import 'package:task_manager/features/screens/new_task_list_screen.dart';
-import 'package:task_manager/features/screens/progress_task_list_screen.dart';
-import 'package:task_manager/features/widgets/task_manager_app_bar.dart';
-
+import 'package:task_manager/ui/screens/canceled_task_list_screen.dart';
+import 'package:task_manager/ui/screens/complete_task_list_screen.dart';
+import 'package:task_manager/ui/screens/new_task_list_screen.dart';
+import 'package:task_manager/ui/screens/progress_task_list_screen.dart';
+import 'package:task_manager/ui/widgets/task_manager_app_bar.dart';
 class MainBottomNavBarScreen extends StatefulWidget {
   const MainBottomNavBarScreen({super.key});
 

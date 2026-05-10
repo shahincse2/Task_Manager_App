@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:task_manager/features/screens/reset_password_screen.dart';
-import 'package:task_manager/features/screens/sign_in_screen.dart';
-import 'package:task_manager/features/widgets/screen_background.dart';
+import 'package:task_manager/ui/screens/reset_password_screen.dart';
+import 'package:task_manager/ui/screens/sign_in_screen.dart';
+import 'package:task_manager/ui/widgets/screen_background.dart';
 
 class ForgotPasswordPOtpVerifyScreen extends StatefulWidget {
   const ForgotPasswordPOtpVerifyScreen({super.key});

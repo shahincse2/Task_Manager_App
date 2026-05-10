@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
 class NetworkCaller {
-  Future<NetworkResponse> getRequest(String url) async {
+  static Future<NetworkResponse> getRequest(String url) async {
     try {
       Uri uri = Uri.parse(url);
       _logRequest(url);
@@ -24,6 +24,7 @@ class NetworkCaller {
         return NetworkResponse(
           isSuccess: false,
           responseCode: response.statusCode,
+          errorMessage: decodedData['data'],
         );
       }
     } catch (e) {
@@ -34,7 +35,7 @@ class NetworkCaller {
       );
     }
   }
-  Future<NetworkResponse> postRequest(String url, Map<String, dynamic>? body) async {
+  static Future<NetworkResponse> postRequest(String url, {Map<String, dynamic>? body}) async {
     try {
       Uri uri = Uri.parse(url);
       _logRequest(url, body: body);
@@ -57,9 +58,11 @@ class NetworkCaller {
         return NetworkResponse(
           isSuccess: false,
           responseCode: response.statusCode,
+          errorMessage: decodedData['data'],
         );
       }
     } catch (e) {
+      debugPrint(e.toString());
       return NetworkResponse(
         isSuccess: false,
         responseCode: -1,
@@ -68,12 +71,12 @@ class NetworkCaller {
     }
   }
 
-  void _logRequest(String url, {Map<String, dynamic>? body}) {
+  static void _logRequest(String url, {Map<String, dynamic>? body}) {
     debugPrint('Request: $url\n'
     'Body: ${body != null ? jsonEncode(body) : 'No body'}');
   }
 
-  void _logResponse(String url, Response response) {
+  static void _logResponse(String url, Response response) {
     debugPrint(
       'Request: $url\n'
       'Status Code: ${response.statusCode}\n'
@@ -86,12 +89,12 @@ class NetworkResponse {
   final bool isSuccess;
   final int responseCode;
   final dynamic body;
-  final String? errorMessage;
+  final String errorMessage;
 
   NetworkResponse({
     required this.isSuccess,
     required this.responseCode,
     this.body,
-    this.errorMessage,
+    this.errorMessage = 'Something went wrong! Please try again later...',
   });
 }

@@ -38,6 +38,7 @@ dependencies:
   pin_code_fields: ^9.3.0
   image_picker: ^1.2.2
   http: ^1.6.0
+  email_validator: ^3.0.0
 
 dev_dependencies:
   flutter_test:

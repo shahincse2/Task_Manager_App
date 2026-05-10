@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/features/widgets/photo_picker.dart';
-import 'package:task_manager/features/widgets/screen_background.dart';
-import 'package:task_manager/features/widgets/task_manager_app_bar.dart';
+import 'package:task_manager/ui/widgets/photo_picker.dart';
+import 'package:task_manager/ui/widgets/screen_background.dart';
+import 'package:task_manager/ui/widgets/task_manager_app_bar.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});
