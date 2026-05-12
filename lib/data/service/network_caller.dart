@@ -14,7 +14,7 @@ class NetworkCaller {
 
       final decodedData = await jsonDecode(response.body);
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         return NetworkResponse(
           isSuccess: true,
           responseCode: response.statusCode,
@@ -35,20 +35,25 @@ class NetworkCaller {
       );
     }
   }
-  static Future<NetworkResponse> postRequest(String url, {Map<String, dynamic>? body}) async {
+
+  static Future<NetworkResponse> postRequest(
+    String url, {
+    Map<String, dynamic>? body,
+  }) async {
     try {
       Uri uri = Uri.parse(url);
       _logRequest(url, body: body);
 
       Response response = await post(
-          uri,
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode(body));
+        uri,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(body),
+      );
       _logResponse(url, response);
 
       final decodedData = await jsonDecode(response.body);
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         return NetworkResponse(
           isSuccess: true,
           responseCode: response.statusCode,
@@ -58,7 +63,10 @@ class NetworkCaller {
         return NetworkResponse(
           isSuccess: false,
           responseCode: response.statusCode,
-          errorMessage: decodedData['data'],
+          errorMessage: decodedData['data'] == 'fail'
+              ? (decodedData['data']?.toString() ??
+                    'Something went wrong! Please try again later...')
+              : decodedData['data'],
         );
       }
     } catch (e) {
@@ -72,8 +80,10 @@ class NetworkCaller {
   }
 
   static void _logRequest(String url, {Map<String, dynamic>? body}) {
-    debugPrint('Request: $url\n'
-    'Body: ${body != null ? jsonEncode(body) : 'No body'}');
+    debugPrint(
+      'Request: $url\n'
+      'Body: ${body != null ? jsonEncode(body) : 'No body'}',
+    );
   }
 
   static void _logResponse(String url, Response response) {

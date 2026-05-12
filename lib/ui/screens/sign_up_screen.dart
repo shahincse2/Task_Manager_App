@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/core/constants/messenger.dart';
 import 'package:task_manager/data/service/network_caller.dart';
 import 'package:task_manager/data/utils/urls.dart';
-import 'package:task_manager/ui/screens/forgot_password_email_screen.dart';
 import 'package:task_manager/ui/screens/sign_in_screen.dart';
 import 'package:task_manager/ui/widgets/screen_background.dart';
 
@@ -49,6 +48,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   TextFormField(
                     controller: _emailController,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                    keyboardType: TextInputType.emailAddress,
+                    textCapitalization: TextCapitalization.none,
+                    enableSuggestions: true,
                     decoration: InputDecoration(hintText: 'Email'),
                     validator: (value) {
                       if (value?.trim().isEmpty ?? true) {
@@ -180,13 +182,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  void _onTapSignInButton() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SignInScreen()),
-    );
-  }
-
   Future<void> _signUp() async {
     _isSignUpInProgress = true;
     setState(() {});
@@ -214,9 +209,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
     } else {
       Messenger.showErrorMessage(
         context,
-        'Registration failed! Please try again later...',
+        response.errorMessage,
       );
     }
+  }
+
+  void _onTapSignInButton() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SignInScreen()),
+    );
   }
 
   void _clearTextFields(){
@@ -227,4 +229,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _passwordController.clear();
   }
 
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _mobileController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 }
