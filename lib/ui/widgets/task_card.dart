@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/data/models/new_task_model.dart';
 
 class TaskCard extends StatelessWidget {
-  const TaskCard({super.key, required this.index});
+  const TaskCard({super.key, required this.newTaskModel, required this.index});
 
+  final NewTaskModel newTaskModel;
   final int index;
 
   @override
@@ -12,12 +14,18 @@ class TaskCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListTile(
         tileColor: Colors.white,
-        title: Text('Task $index', style: textTheme.titleMedium),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(newTaskModel.title, style: textTheme.titleMedium),
+            Text(index.toString(), style: textTheme.bodySmall),
+          ],
+        ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Description of task $index', style: textTheme.bodyMedium),
-            Text('Date: 8 May 2026', style: textTheme.bodySmall),
+            Text(newTaskModel.description, style: textTheme.bodyMedium),
+            Text('Create Date: ${newTaskModel.createdDate}', style: textTheme.bodySmall),
             const SizedBox(height: 4),
             Row(
               children: [
@@ -28,7 +36,7 @@ class TaskCard extends StatelessWidget {
                     color: Colors.green,
                   ),
                   child: Text(
-                    'New',
+                    newTaskModel.status,
                     style: textTheme.bodySmall?.copyWith(color: Colors.white),
                   ),
                 ),

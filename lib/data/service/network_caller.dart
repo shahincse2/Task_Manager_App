@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
+import 'package:task_manager/ui/controllers/auth_controller.dart';
 
 class NetworkCaller {
   static Future<NetworkResponse> getRequest(String url) async {
@@ -9,7 +10,10 @@ class NetworkCaller {
       Uri uri = Uri.parse(url);
       _logRequest(url);
 
-      Response response = await get(uri);
+      Response response = await get(
+        uri,
+        headers: {'token': AuthController.accessToken ?? ''},
+      );
       _logResponse(url, response);
 
       final decodedData = await jsonDecode(response.body);
@@ -24,7 +28,7 @@ class NetworkCaller {
         return NetworkResponse(
           isSuccess: false,
           responseCode: response.statusCode,
-          errorMessage: decodedData['data'],
+          errorMessage: decodedData['data']?.toString() ?? 'Something went wrong!',
         );
       }
     } catch (e) {
@@ -46,7 +50,10 @@ class NetworkCaller {
 
       Response response = await post(
         uri,
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'token': AuthController.accessToken ?? '',
+        },
         body: jsonEncode(body),
       );
       _logResponse(url, response);
@@ -63,10 +70,10 @@ class NetworkCaller {
         return NetworkResponse(
           isSuccess: false,
           responseCode: response.statusCode,
-          errorMessage: decodedData['data'] == 'fail'
-              ? (decodedData['data']?.toString() ??
-                    'Something went wrong! Please try again later...')
-              : decodedData['data'],
+          errorMessage:
+              (decodedData['data']?.toString() ??
+              decodedData['status']?.toString() ??
+              'Something went wrong! Please try again later...'),
         );
       }
     } catch (e) {

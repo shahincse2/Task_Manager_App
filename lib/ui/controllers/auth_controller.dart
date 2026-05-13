@@ -14,8 +14,10 @@ class AuthController {
     await sharedPreferences.setString(_tokenKey, token);
     await sharedPreferences.setString(
       _userKey,
-      jsonEncode(userModel.toString()),
+      jsonEncode(userModel.toJson()),
     );
+    accessToken = token;
+    user = userModel;
   }
 
   static Future<void> getUserData() async {
@@ -33,6 +35,7 @@ class AuthController {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString(_tokenKey);
     if (token != null) {
+      await getUserData();
       return true;
     }
     return false;

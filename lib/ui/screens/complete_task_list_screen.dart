@@ -23,7 +23,7 @@ class _CompleteTaskListScreenState extends State<CompleteTaskListScreen> {
               physics: NeverScrollableScrollPhysics(),
               itemCount: 10,
               itemBuilder: (context, index) {
-                return TaskCard(index: index);
+                //return TaskCard();
               },
               separatorBuilder: (BuildContext context, int index) {
                 return SizedBox(height: 8);
