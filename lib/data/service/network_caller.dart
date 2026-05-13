@@ -1,8 +1,9 @@
 import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:task_manager/app.dart';
 import 'package:task_manager/ui/controllers/auth_controller.dart';
+import 'package:task_manager/ui/screens/sign_in_screen.dart';
 
 class NetworkCaller {
   static Future<NetworkResponse> getRequest(String url) async {
@@ -24,11 +25,19 @@ class NetworkCaller {
           responseCode: response.statusCode,
           body: decodedData,
         );
+      }  else if (response.statusCode == 401) {
+        _onUnAuthorized();
+        return NetworkResponse(
+          isSuccess: false,
+          responseCode: response.statusCode,
+          errorMessage: 'Un-Authorized',
+        );
       } else {
         return NetworkResponse(
           isSuccess: false,
           responseCode: response.statusCode,
-          errorMessage: decodedData['data']?.toString() ?? 'Something went wrong!',
+          errorMessage:
+              decodedData['data']?.toString() ?? 'Something went wrong!',
         );
       }
     } catch (e) {
@@ -66,6 +75,13 @@ class NetworkCaller {
           responseCode: response.statusCode,
           body: decodedData,
         );
+      } else if (response.statusCode == 401) {
+        _onUnAuthorized();
+        return NetworkResponse(
+          isSuccess: false,
+          responseCode: response.statusCode,
+          errorMessage: 'Un-Authorized',
+        );
       } else {
         return NetworkResponse(
           isSuccess: false,
@@ -84,6 +100,15 @@ class NetworkCaller {
         errorMessage: e.toString(),
       );
     }
+  }
+
+  static void _onUnAuthorized() async {
+    await AuthController.clearUserData();
+    Navigator.pushNamedAndRemoveUntil(
+      TaskManagerApp.navigatorKey.currentContext!,
+      SignInScreen.routeName,
+      (route) => false,
+    );
   }
 
   static void _logRequest(String url, {Map<String, dynamic>? body}) {
