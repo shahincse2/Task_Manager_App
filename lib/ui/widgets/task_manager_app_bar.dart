@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/ui/controllers/auth_controller.dart';
+import 'package:task_manager/ui/screens/sign_in_screen.dart';
 import 'package:task_manager/ui/screens/update_profile_screen.dart';
 
 class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -41,6 +43,16 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
       ),
+      actions: [
+        IconButton(
+          onPressed: () async {
+            await AuthController.clearUserData();
+            if(!context.mounted) return;
+            Navigator.pushNamedAndRemoveUntil(context, SignInScreen.routeName, (predicate) => false);
+          },
+          icon: Icon(Icons.logout_outlined, color: Colors.white,),
+        ),
+      ],
     );
   }
 
