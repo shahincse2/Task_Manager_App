@@ -46,7 +46,7 @@ class _MainBottomNavBarScreenState extends State<MainBottomNavBarScreen> {
           ),
           NavigationDestination(
             icon: Icon(Icons.cancel_outlined),
-            label: 'Canceled',
+            label: 'Cancelled',
           ),
           NavigationDestination(
             icon: Icon(Icons.done_all_outlined),
