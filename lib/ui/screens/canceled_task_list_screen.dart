@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/ui/widgets/task_card.dart';
-
 class CanceledTaskListScreen extends StatefulWidget {
   const CanceledTaskListScreen({super.key});
 

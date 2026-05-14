@@ -48,7 +48,12 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
                   ? Center(child: CircularProgressIndicator())
                   : _buildTaskSummaryListView(textTheme),
               _isTaskListLoadingInProgress
-                  ? Center(child: CircularProgressIndicator())
+                  ? Column(
+                    children: [
+                     const SizedBox(height: 240),
+                      CircularProgressIndicator(),
+                    ],
+                  )
                   : ListView.separated(
                       reverse: true,
                       primary: false,
@@ -59,6 +64,10 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
                         return TaskCard(
                           newTaskModel: _newTaskListByStatus[index],
                           index: _newTaskListByStatus.length - index,
+                          refreshList: () {
+                            _getNewTaskList();
+                            _getTaskListByStatus();
+                          },
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
