@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/core/constants/messenger.dart';
 import 'package:task_manager/data/service/network_caller.dart';
 import 'package:task_manager/data/utils/urls.dart';
+import 'package:task_manager/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:task_manager/ui/widgets/screen_background.dart';
 import 'package:task_manager/ui/widgets/task_manager_app_bar.dart';
 
@@ -76,7 +77,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                   FilledButton(
                     onPressed: _onTapAddNewTaskButton,
                     child: _isAddNewTaskInProgress
-                        ? CircularProgressIndicator()
+                        ? CenteredCircularProgressIndicator()
                         : Text('Add Task'),
                   ),
                 ],

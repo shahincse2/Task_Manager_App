@@ -34,10 +34,13 @@ class _ProgressTaskListScreenState extends State<ProgressTaskListScreen> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          _getTaskListByStatus();
-          _getProgressTaskList();
+         await _refreshData();
+          if (mounted) {
+            setState(() {});
+          }
         },
         child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             spacing: 16,
             children: [
@@ -47,31 +50,28 @@ class _ProgressTaskListScreenState extends State<ProgressTaskListScreen> {
                   : _buildTaskSummaryListView(textTheme),
               _isTaskListLoadingInProgress
                   ? Column(
-                children: [
-                  const SizedBox(height: 240),
-                  CircularProgressIndicator(),
-                ],
-              )
+                      children: [
+                        const SizedBox(height: 240),
+                        CircularProgressIndicator(),
+                      ],
+                    )
                   : ListView.separated(
-                reverse: true,
-                primary: false,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: _progressTaskListByStatus.length,
-                itemBuilder: (context, index) {
-                  return TaskCard(
-                    newTaskModel: _progressTaskListByStatus[index],
-                    index: _progressTaskListByStatus.length - index,
-                    refreshList: () {
-                      _getProgressTaskList();
-                      _getTaskListByStatus();
-                    },
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(height: 8);
-                },
-              ),
+                      reverse: true,
+                      primary: false,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: _progressTaskListByStatus.length,
+                      itemBuilder: (context, index) {
+                        return TaskCard(
+                          newTaskModel: _progressTaskListByStatus[index],
+                          index: _progressTaskListByStatus.length - index,
+                          refreshList: _refreshData,
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(height: 8);
+                      },
+                    ),
             ],
           ),
         ),
@@ -109,6 +109,10 @@ class _ProgressTaskListScreenState extends State<ProgressTaskListScreen> {
         },
       ),
     );
+  }
+
+  Future<void> _refreshData() async {
+    await Future.wait([_getTaskListByStatus(), _getProgressTaskList()]);
   }
 
   Future<void> _getProgressTaskList() async {

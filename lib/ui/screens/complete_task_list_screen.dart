@@ -34,10 +34,13 @@ class _CompleteTaskListScreenState extends State<CompleteTaskListScreen> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          _getTaskListByStatus();
-          _getCompletedTaskList();
+          await _refreshData();
+          if (mounted) {
+            setState(() {});
+          }
         },
         child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             spacing: 16,
             children: [
@@ -62,10 +65,7 @@ class _CompleteTaskListScreenState extends State<CompleteTaskListScreen> {
                   return TaskCard(
                     newTaskModel: _completedTaskListByStatus[index],
                     index: _completedTaskListByStatus.length - index,
-                    refreshList: () {
-                      _getCompletedTaskList();
-                      _getTaskListByStatus();
-                    },
+                    refreshList: _refreshData,
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
@@ -109,6 +109,10 @@ class _CompleteTaskListScreenState extends State<CompleteTaskListScreen> {
         },
       ),
     );
+  }
+
+  Future<void> _refreshData() async {
+    await Future.wait([_getTaskListByStatus(), _getCompletedTaskList()]);
   }
 
   Future<void> _getCompletedTaskList() async {

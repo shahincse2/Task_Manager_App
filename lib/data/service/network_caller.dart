@@ -151,6 +151,52 @@ class NetworkCaller {
     }
   }
 
+  static Future<NetworkResponse> deleteRequest(String url) async {
+    try {
+      Uri uri = Uri.parse(url);
+      _logRequest(url);
+
+      Response response = await delete(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+          'token': AuthController.accessToken ?? '',
+        },
+      );
+      _logResponse(url, response);
+
+      final decodedData = await jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return NetworkResponse(
+          isSuccess: true,
+          responseCode: response.statusCode,
+          body: decodedData,
+        );
+      } else if (response.statusCode == 401) {
+        _onUnAuthorized();
+        return NetworkResponse(
+          isSuccess: false,
+          responseCode: response.statusCode,
+          errorMessage: 'Un-Authorized',
+        );
+      } else {
+        return NetworkResponse(
+          isSuccess: false,
+          responseCode: response.statusCode,
+          errorMessage: decodedData['data']?.toString() ?? 'Delete failed!',
+        );
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      return NetworkResponse(
+        isSuccess: false,
+        responseCode: -1,
+        errorMessage: e.toString(),
+      );
+    }
+  }
+
 
   static void _onUnAuthorized() async {
     await AuthController.clearUserData();

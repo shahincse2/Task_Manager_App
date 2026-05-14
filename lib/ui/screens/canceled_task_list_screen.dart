@@ -33,10 +33,13 @@ class _CanceledTaskListScreenState extends State<CanceledTaskListScreen> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          _getTaskListByStatus();
-          _getCancelledTaskList();
+         await _refreshData();
+          if (mounted) {
+            setState(() {});
+          }
         },
         child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             spacing: 16,
             children: [
@@ -61,10 +64,7 @@ class _CanceledTaskListScreenState extends State<CanceledTaskListScreen> {
                   return TaskCard(
                     newTaskModel: _cancelledTaskListByStatus[index],
                     index: _cancelledTaskListByStatus.length - index,
-                    refreshList: () {
-                      _getCancelledTaskList();
-                      _getTaskListByStatus();
-                    },
+                    refreshList: _refreshData,
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
@@ -108,6 +108,11 @@ class _CanceledTaskListScreenState extends State<CanceledTaskListScreen> {
         },
       ),
     );
+  }
+
+
+  Future<void> _refreshData() async {
+    await Future.wait([_getTaskListByStatus(), _getCancelledTaskList()]);
   }
 
   Future<void> _getCancelledTaskList() async {

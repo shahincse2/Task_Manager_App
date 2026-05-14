@@ -35,8 +35,10 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          _getTaskListByStatus();
-          _getNewTaskList();
+         await _refreshData();
+          if (mounted) {
+            setState(() {});
+          }
         },
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
@@ -64,10 +66,7 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
                         return TaskCard(
                           newTaskModel: _newTaskListByStatus[index],
                           index: _newTaskListByStatus.length - index,
-                          refreshList: () {
-                            _getNewTaskList();
-                            _getTaskListByStatus();
-                          },
+                          refreshList: _refreshData,
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
@@ -116,6 +115,11 @@ class _NewTaskListScreenState extends State<NewTaskListScreen> {
       ),
     );
   }
+
+  Future<void> _refreshData() async {
+    await Future.wait([_getTaskListByStatus(), _getNewTaskList()]);
+  }
+
 
   void _onTapAddNewTaskButton() {
     Navigator.pushNamed(context, AddNewTaskScreen.routeName);

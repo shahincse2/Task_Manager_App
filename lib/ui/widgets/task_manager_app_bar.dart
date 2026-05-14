@@ -13,13 +13,25 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return AppBar(
-      automaticallyImplyLeading: true,
+      automaticallyImplyLeading: false,
       foregroundColor: Colors.white,
-      leadingWidth: 20,
+      leadingWidth: 32,
+      leading: IconButton(
+        onPressed: () {
+          if(Navigator.canPop(context)){
+            Navigator.pop(context);
+          }else{
+            return;
+          }
+        },
+        icon: Icon(Icons.arrow_back_outlined),
+        color: Colors.white,
+        iconSize: 32,
+      ),
       backgroundColor: Colors.green,
       title: GestureDetector(
         onTap: () {
-          if(fromUpdateProfileScreen) return;
+          if (fromUpdateProfileScreen) return;
           Navigator.pushNamed(context, UpdateProfileScreen.routeName);
         },
         child: Row(
@@ -31,7 +43,7 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                 AuthController.user?.fullName ?? '',
+                  AuthController.user?.fullName ?? '',
                   style: textTheme.bodyLarge?.copyWith(color: Colors.white),
                 ),
                 Text(
@@ -47,10 +59,14 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
           onPressed: () async {
             await AuthController.clearUserData();
-            if(!context.mounted) return;
-            Navigator.pushNamedAndRemoveUntil(context, SignInScreen.routeName, (predicate) => false);
+            if (!context.mounted) return;
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              SignInScreen.routeName,
+              (predicate) => false,
+            );
           },
-          icon: Icon(Icons.logout_outlined, color: Colors.white,),
+          icon: Icon(Icons.logout_outlined, color: Colors.white),
         ),
       ],
     );
