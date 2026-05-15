@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/ui/screens/forgot_password_otp_verify_screen.dart';
 import 'package:task_manager/ui/screens/sign_in_screen.dart';
+import 'package:task_manager/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:task_manager/ui/widgets/screen_background.dart';
 
 class ForgotPasswordEmailScreen extends StatefulWidget {
@@ -14,6 +15,8 @@ class ForgotPasswordEmailScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
+  bool _isEmailSubmitionInProgress = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +44,7 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
               const SizedBox(height: 8),
               FilledButton(
                 onPressed: _onTapEmailSubmitButton,
-                child: Icon(Icons.arrow_circle_right_outlined),
+                child: _isEmailSubmitionInProgress ? CenteredCircularProgressIndicator() : Icon(Icons.arrow_circle_right_outlined),
               ),
               const SizedBox(height: 24),
               Center(
@@ -71,6 +74,8 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
     );
   }
   void _onTapEmailSubmitButton() {
+    _isEmailSubmitionInProgress = true;
+    setState(() {});
     Navigator.pushNamed(context, ForgotPasswordPOtpVerifyScreen.routeName);
   }
 

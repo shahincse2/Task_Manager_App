@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:task_manager/ui/screens/reset_password_screen.dart';
 import 'package:task_manager/ui/screens/sign_in_screen.dart';
+import 'package:task_manager/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:task_manager/ui/widgets/screen_background.dart';
 
 class ForgotPasswordPOtpVerifyScreen extends StatefulWidget {
@@ -17,6 +18,8 @@ class ForgotPasswordPOtpVerifyScreen extends StatefulWidget {
 
 class _ForgotPasswordPOtpVerifyScreenState
     extends State<ForgotPasswordPOtpVerifyScreen> {
+  bool _isVerifyPasswordButtonInProgress = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +82,7 @@ class _ForgotPasswordPOtpVerifyScreenState
               const SizedBox(height: 8),
               FilledButton(
                 onPressed: _onTapVerifyPasswordButton,
-                child: Text('Verify'),
+                child: _isVerifyPasswordButtonInProgress ? CenteredCircularProgressIndicator() : Text('Verify'),
               ),
               const SizedBox(height: 24),
               Center(
@@ -110,6 +113,8 @@ class _ForgotPasswordPOtpVerifyScreenState
   }
 
   void _onTapVerifyPasswordButton() {
+    _isVerifyPasswordButtonInProgress = true;
+    setState(() {});
     Navigator.pushNamedAndRemoveUntil(context, ResetPasswordScreen.routeName, (route) => false);
   }
 

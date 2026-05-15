@@ -4,6 +4,7 @@ class UserModel {
   final String firstName;
   final String lastName;
   final String mobile;
+  final String photo;
   final String createdAt;
   final String updatedAt;
 
@@ -13,6 +14,7 @@ class UserModel {
     required this.firstName,
     required this.lastName,
     required this.mobile,
+    required this.photo,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -24,6 +26,7 @@ class UserModel {
       firstName: jsonData['firstName'],
       lastName: jsonData['lastName'],
       mobile: jsonData['mobile'],
+      photo: jsonData['photo'],
       createdAt: jsonData['createdAt'],
       updatedAt: jsonData['updatedAt'],
     );
@@ -40,6 +43,7 @@ class UserModel {
       "firstName": firstName,
       "lastName": lastName,
       "mobile": mobile,
+      "photo": photo,
       "createdAt": createdAt,
       "updatedAt": updatedAt,
     };

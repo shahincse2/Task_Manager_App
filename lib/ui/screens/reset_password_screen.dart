@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/ui/screens/sign_in_screen.dart';
+import 'package:task_manager/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:task_manager/ui/widgets/screen_background.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -13,6 +14,8 @@ class ResetPasswordScreen extends StatefulWidget {
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  bool _isResetButtonInProgress = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,12 +37,18 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: 24),
-              TextFormField(decoration: InputDecoration(hintText: 'New Password')),
-              TextFormField(decoration: InputDecoration(hintText: 'Confirm Password')),
+              TextFormField(
+                decoration: InputDecoration(hintText: 'New Password'),
+              ),
+              TextFormField(
+                decoration: InputDecoration(hintText: 'Confirm Password'),
+              ),
               const SizedBox(height: 8),
               FilledButton(
                 onPressed: _onTapConfirmButton,
-                child: Text('Confirm'),
+                child: _isResetButtonInProgress
+                    ? CenteredCircularProgressIndicator()
+                    : Text('Confirm'),
               ),
               const SizedBox(height: 24),
               Center(
@@ -56,7 +65,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         text: 'Sign In',
                         style: TextStyle(color: Colors.green),
                         recognizer: TapGestureRecognizer()
-                          ..onTap = _onTapSignInButton
+                          ..onTap = _onTapSignInButton,
                       ),
                     ],
                   ),
@@ -68,9 +77,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       ),
     );
   }
-  void _onTapConfirmButton(){
+
+  void _onTapConfirmButton() {
+    _isResetButtonInProgress = true;
+    setState(() {});
     //TODO: Implement reset password functionality here
   }
+
   void _onTapSignInButton() {
     Navigator.push(
       context,

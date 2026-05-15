@@ -5,6 +5,7 @@ import 'package:task_manager/core/constants/messenger.dart';
 import 'package:task_manager/data/service/network_caller.dart';
 import 'package:task_manager/data/utils/urls.dart';
 import 'package:task_manager/ui/screens/sign_in_screen.dart';
+import 'package:task_manager/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:task_manager/ui/widgets/screen_background.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -132,14 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   FilledButton(
                     onPressed: _onTapSignUpSubmitButton,
                     child: _isSignUpInProgress == true
-                        ? CircularProgressIndicator(
-                            padding: EdgeInsets.zero,
-                            color: Colors.white,
-                            strokeWidth: 4,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.white,
-                            ),
-                          )
+                        ? CenteredCircularProgressIndicator()
                         : Icon(Icons.arrow_circle_right_outlined),
                   ),
                   const SizedBox(height: 24),

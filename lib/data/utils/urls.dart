@@ -1,7 +1,12 @@
 class Urls {
   static const String _baseUrl = 'http://192.168.0.196:5000/api/v1';
+
+  // Auth Related End Points
   static const String registrationUrl = '$_baseUrl/registration';
   static const String loginUrl = '$_baseUrl/login';
+  static const String profileUpdateUrl = '$_baseUrl/profileUpdate';
+
+  // Task Related End Points
   static const String createTaskUrl = '$_baseUrl/createTask';
   static const String newTaskListUrl = '$_baseUrl/listTaskByStatus/New';
   static const String progressTaskListUrl = '$_baseUrl/listTaskByStatus/Progress';

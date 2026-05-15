@@ -8,6 +8,7 @@ import 'package:task_manager/ui/controllers/auth_controller.dart';
 import 'package:task_manager/ui/screens/forgot_password_email_screen.dart';
 import 'package:task_manager/ui/screens/main_bottom_nav_bar_screen.dart';
 import 'package:task_manager/ui/screens/sign_up_screen.dart';
+import 'package:task_manager/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:task_manager/ui/widgets/screen_background.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -87,14 +88,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     onPressed: _onTapSignInButton,
                     child: _isSignInInProgress
                         ? Center(
-                            child: CircularProgressIndicator(
-                              padding: EdgeInsets.zero,
-                              color: Colors.white,
-                              strokeWidth: 4,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.white,
-                              ),
-                            ),
+                            child: CenteredCircularProgressIndicator()
                           )
                         : Icon(Icons.arrow_circle_right_outlined),
                   ),
