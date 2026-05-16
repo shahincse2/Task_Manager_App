@@ -1,24 +1,28 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:task_manager/core/constants/messenger.dart';
+import 'package:task_manager/data/service/network_caller.dart';
+import 'package:task_manager/data/utils/urls.dart';
 import 'package:task_manager/ui/screens/reset_password_screen.dart';
 import 'package:task_manager/ui/screens/sign_in_screen.dart';
 import 'package:task_manager/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:task_manager/ui/widgets/screen_background.dart';
 
-class ForgotPasswordPOtpVerifyScreen extends StatefulWidget {
-  const ForgotPasswordPOtpVerifyScreen({super.key});
+class ForgotPasswordOtpVerifyScreen extends StatefulWidget {
+  const ForgotPasswordOtpVerifyScreen({super.key});
 
   static const String routeName = '/forgot-password-pin-verify-screen';
 
   @override
-  State<ForgotPasswordPOtpVerifyScreen> createState() =>
-      _ForgotPasswordPOtpVerifyScreenState();
+  State<ForgotPasswordOtpVerifyScreen> createState() =>
+      _ForgotPasswordOtpVerifyScreenState();
 }
 
-class _ForgotPasswordPOtpVerifyScreenState
-    extends State<ForgotPasswordPOtpVerifyScreen> {
+class _ForgotPasswordOtpVerifyScreenState
+    extends State<ForgotPasswordOtpVerifyScreen> {
   bool _isVerifyPasswordButtonInProgress = false;
+  String _otp = '';
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +72,12 @@ class _ForgotPasswordPOtpVerifyScreenState
                           child: Center(
                             child: Text(
                               cell.character ?? '',
-                              style: TextStyle(fontSize: 24, color: cell.isFocused ? Colors.white : Colors.black,),
+                              style: TextStyle(
+                                fontSize: 24,
+                                color: cell.isFocused
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
                             ),
                           ),
                         ),
@@ -76,13 +85,17 @@ class _ForgotPasswordPOtpVerifyScreenState
                     }).toList(),
                   );
                 },
-                onCompleted: (pin) => print('PIN: $pin'),
+                onCompleted: (pin) {
+                  _otp = pin;
+                },
               ),
 
               const SizedBox(height: 8),
               FilledButton(
-                onPressed: _onTapVerifyPasswordButton,
-                child: _isVerifyPasswordButtonInProgress ? CenteredCircularProgressIndicator() : Text('Verify'),
+                onPressed: _onTapVerifyOtpButton,
+                child: _isVerifyPasswordButtonInProgress
+                    ? CenteredCircularProgressIndicator()
+                    : Text('Verify'),
               ),
               const SizedBox(height: 24),
               Center(
@@ -112,16 +125,46 @@ class _ForgotPasswordPOtpVerifyScreenState
     );
   }
 
-  void _onTapVerifyPasswordButton() {
-    _isVerifyPasswordButtonInProgress = true;
-    setState(() {});
-    Navigator.pushNamedAndRemoveUntil(context, ResetPasswordScreen.routeName, (route) => false);
-  }
-
   void _onTapSignInButton() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SignInScreen()),
     );
+  }
+
+  void _onTapVerifyOtpButton() {
+    _verifyOtp();
+  }
+
+  Future<void> _verifyOtp() async {
+    _isVerifyPasswordButtonInProgress = true;
+    setState(() {});
+
+    if (_otp.length != 6) {
+      Messenger.showErrorMessage(context, 'Enter your 6 digit OTP');
+      return;
+    }
+
+    final String email = ModalRoute.of(context)!.settings.arguments as String;
+
+    final NetworkResponse response = await NetworkCaller.getRequest(
+      Urls.verifyOtpUrl(email, _otp),
+    );
+
+    _isVerifyPasswordButtonInProgress = false;
+    setState(() {});
+
+    if (response.isSuccess) {
+      if (!mounted) return;
+      Messenger.showSuccessMessage(context, response.body['data']);
+      Navigator.pushNamed(
+        context,
+        ResetPasswordScreen.routeName,
+        arguments: {'email': email, 'otp': _otp},
+      );
+    } else {
+      if (!mounted) return;
+      Messenger.showErrorMessage(context, response.errorMessage);
+    }
   }
 }

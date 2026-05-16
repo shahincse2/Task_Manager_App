@@ -5,6 +5,9 @@ class Urls {
   static const String registrationUrl = '$_baseUrl/registration';
   static const String loginUrl = '$_baseUrl/login';
   static const String profileUpdateUrl = '$_baseUrl/profileUpdate';
+  static const String resetPasswordUrl = '$_baseUrl/resetPassword';
+  static String emailVerifyUrl(String email) => '$_baseUrl/verifyEmail/$email';
+  static String verifyOtpUrl(String email, String otp) => '$_baseUrl/verifyOtp/$email/$otp';
 
   // Task Related End Points
   static const String createTaskUrl = '$_baseUrl/createTask';

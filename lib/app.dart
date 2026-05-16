@@ -73,7 +73,7 @@ class TaskManagerApp extends StatelessWidget {
         SignInScreen.routeName: (BuildContext context) => SignInScreen(),
         SignUpScreen.routeName: (BuildContext context) => SignUpScreen(),
         ForgotPasswordEmailScreen.routeName: (BuildContext context) => ForgotPasswordEmailScreen(),
-        ForgotPasswordPOtpVerifyScreen.routeName: (BuildContext context) => ForgotPasswordPOtpVerifyScreen(),
+        ForgotPasswordOtpVerifyScreen.routeName: (BuildContext context) => ForgotPasswordOtpVerifyScreen(),
         ResetPasswordScreen.routeName: (BuildContext context) => ResetPasswordScreen(),
         MainBottomNavBarScreen.routeName: (BuildContext context) => MainBottomNavBarScreen(),
         AddNewTaskScreen.routeName: (BuildContext context) => AddNewTaskScreen(),
